@@ -1,6 +1,9 @@
 export const joiValidator = (data, schema) => {
-  const { error } = schema.validate(value, { abortEarly: false });
+  const { error } = schema.validate(data, { abortEarly: false });
   if (error) {
-    throw new Error('Bad Request', { details: error.details, statusCode: 400, error: 'Bad Request' });
+    const err = new Error('Bad Request');
+    err.status = 400;
+    err.details = error.details;
+    throw err;
   }
 }

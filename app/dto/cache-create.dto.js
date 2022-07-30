@@ -1,3 +1,5 @@
+import Joi from 'joi';
+
 export const CacheCreateSchemaFactory = () => {
   const schema = {
     key: Joi.string().required(),

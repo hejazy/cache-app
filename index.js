@@ -11,8 +11,9 @@ async function bootstrap() {
   const loggerService = new LoggerService();
   const databaseService = new DatabaseService(loggerService);
   await databaseService.connect()
+  app.use(express.urlencoded({extended: true}));
+  app.use(express.json())
   new RouterService(app)
-  app.use(express.json());
 
   app.listen(port, () => {
     loggerService.log({message: `App started at http://localhost:${port}`});

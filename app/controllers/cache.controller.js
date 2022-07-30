@@ -12,7 +12,11 @@ router.get('/', async (req, res) => {
     const data = await cacheService.getAll();
     res.json(data);
   } catch (e) {
-    return res.status(400).json({ message: e.message });
+    return res.status(e.status || 500).json({
+      message: e.message,
+      ...(e.status && { status: e.status }),
+      ...(e.details && { details: e.details }),
+    });
   }
 });
 
@@ -22,17 +26,25 @@ router.get('/:key', async (req, res) => {
     const data = await cacheService.getByKey({key: req.params.id});
     res.json(data);
   } catch (e) {
-    return res.status(400).json({ message: e.message });
+    return res.status(e.status || 500).json({
+      message: e.message,
+      ...(e.status && { status: e.status }),
+      ...(e.details && { details: e.details }),
+    });
   }
 });
 
 router.post('/', async (req, res) => {
   try{
     joiValidator(req.body, CacheCreateSchema);
-    const data =  await cacheService.create({key: req.body.key, value: req.body.value});
+    const data =  await cacheService.create({key: req.body?.key, value: req.body?.value});
     res.json(data);
   } catch (e) {
-    return res.status(400).json({ message: e.message });
+    return res.status(e.status || 500).json({
+      message: e.message,
+      ...(e.status && { status: e.status }),
+      ...(e.details && { details: e.details }),
+    });
   }
 });
 
@@ -42,7 +54,11 @@ router.patch('/', async (req, res) => {
     const data = await cacheService.update({value: req.body.value, key: req.body.key });
     res.json(data);
   } catch (e) {
-    return res.status(400).json({ message: e.message });
+    return res.status(e.status || 500).json({
+      message: e.message,
+      ...(e.status && { status: e.status }),
+      ...(e.details && { details: e.details }),
+    });
   }
 });
 
@@ -51,7 +67,11 @@ router.delete('/', async (req, res) => {
     const data = await cacheService.deleteAll();
     res.json(data);
   } catch (e) {
-    return res.status(400).json({ message: e.message });
+    return res.status(e.status || 500).json({
+      message: e.message,
+      ...(e.status && { status: e.status }),
+      ...(e.details && { details: e.details }),
+    });
   }
 });
 
@@ -61,7 +81,11 @@ router.delete('/:key', async (req, res) => {
     const data = await cacheService.deleteOne({key: req.params.key});
     res.json(data);
   } catch (e) {
-    return res.status(400).json({ message: e.message });
+    return res.status(e.status || 500).json({
+      message: e.message,
+      ...(e.status && { status: e.status }),
+      ...(e.details && { details: e.details }),
+    });
   }
 });
 
