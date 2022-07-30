@@ -14,3 +14,7 @@ PATCH   /cache         updates cache by key
 DELETE  /cache         deletes all cache
 DELETE  /cache/:key    deletes cache by key
 ```
+
+
+Request flow:
+=> router  =>  controller  => services  => DB middleware (lib/database/plugins) => mongo DB
