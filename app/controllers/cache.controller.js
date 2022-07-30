@@ -23,7 +23,7 @@ router.get('/', async (req, res) => {
 router.get('/:key', async (req, res) => {
   try{
     joiValidator(req.params, CacheParamSchema);
-    const data = await cacheService.getByKey({key: req.params.id});
+    const data = await cacheService.getByKey({key: req.params.key});
     res.json(data);
   } catch (e) {
     return res.status(e.status || 500).json({
