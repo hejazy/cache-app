@@ -1,7 +1,10 @@
 import { CacheModel } from "../models/index.js";
 import {getRandomValue} from '../helpers/index.js';
+import { LoggerService } from "../../lib/index.js";
 
 export class CacheService {
+  logger = new LoggerService()
+  
   constructor() {
     if (CacheService._instance) {
       return CacheService._instance
@@ -14,8 +17,12 @@ export class CacheService {
   }
   async getByKey({key}){
     const res = await CacheModel.findOne({key});
-    if(res) return res;
-    else return await this.create({key, value: getRandomValue()})
+    if(res) {
+      this.logger.log({message: `Cache hit, key: ${key}`})
+      return res;
+    }
+    this.logger.log({message: `Cache miss, key: ${key}`});
+    return await this.create({key, value: getRandomValue()})
   }
   async create({key, value}){
     return await CacheModel.findOneAndUpdate(
