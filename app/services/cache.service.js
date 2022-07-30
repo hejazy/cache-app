@@ -1,6 +1,5 @@
 import { CacheModel } from "../models/index.js";
 import {getRandomValue} from '../helpers/index.js';
-import { LoggerService } from "../../lib/index.js";
 
 export class CacheService {
   
@@ -36,7 +35,7 @@ export class CacheService {
     return {message: 'All data cleared'}
   }
   async deleteOne({key}){
-    await CacheModel.removeOne({key})
+    await CacheModel.deleteOne({key})
     return {message: `record with key: ${key} deleted`}
   }
 }
