@@ -1,8 +1,8 @@
 # Express + MongoDB Caching Application
 
 1. Install dependencies via `npm install`
-3. Run via `npm run start` or `npm run start:dev` (nodemon)
-4. Example API is running on localhost:3046
+2. Run via `npm run start` or `npm run start:dev` (nodemon)
+3. Example API is running on localhost:8080
 
 Available routes:
 
