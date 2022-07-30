@@ -10,7 +10,7 @@ Available routes:
 GET     /cache         return all cache
 GET     /cache/:key    finds cache by key
 POST    /cache         creates new cache
-PATCH   /cache/:key    updates cache by key
-DELETE  /cache    deletes all cache
+PATCH   /cache         updates cache by key
+DELETE  /cache         deletes all cache
 DELETE  /cache/:key    deletes cache by key
 ```
