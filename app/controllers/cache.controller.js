@@ -1,6 +1,8 @@
 
 import { Router } from 'express';
 import { CacheService } from '../services/index.js';
+import {CacheCreateSchema, CacheUpdateSchema, CacheParamSchema} from '../dto/index.js'
+import {joiValidator} from '../helpers/index.js';
 
 const router = Router();
 const cacheService = new CacheService()
@@ -16,6 +18,7 @@ router.get('/', async (req, res) => {
 
 router.get('/:key', async (req, res) => {
   try{
+    joiValidator(req.params, CacheParamSchema);
     const data = await cacheService.getByKey({key: req.params.id});
     res.json(data);
   } catch (e) {
@@ -25,7 +28,8 @@ router.get('/:key', async (req, res) => {
 
 router.post('/', async (req, res) => {
   try{
-    const data =  await cacheService.create({key: req.params.key, value: req.body.value});
+    joiValidator(req.body, CacheCreateSchema);
+    const data =  await cacheService.create({key: req.body.key, value: req.body.value});
     res.json(data);
   } catch (e) {
     return res.status(400).json({ message: e.message });
@@ -34,6 +38,7 @@ router.post('/', async (req, res) => {
 
 router.patch('/', async (req, res) => {
   try{
+    joiValidator(req.body, CacheUpdateSchema);
     const data = await cacheService.update({value: req.body.value, key: req.body.key });
     res.json(data);
   } catch (e) {
@@ -52,6 +57,7 @@ router.delete('/', async (req, res) => {
 
 router.delete('/:key', async (req, res) => {
   try{
+    joiValidator(req.params, CacheParamSchema);
     const data = await cacheService.deleteOne({key: req.params.key});
     res.json(data);
   } catch (e) {
