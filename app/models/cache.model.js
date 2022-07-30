@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-// import {ttlPlugin, autoAddValueForKey} from '../../lib/database/plugins/index.js';
+import {ttlPlugin} from '../../lib/index.js';
 
 var CacheSchema = new mongoose.Schema({
 	key: {
@@ -10,9 +10,8 @@ var CacheSchema = new mongoose.Schema({
 		type : String,
 		required: true
 	}
-}, { timestamps: true });
+}, { timestamps: true, versionKey: false });
 
-// autoAddValueForKey(schema);
-// ttlPlugin(schema);
+ttlPlugin(CacheSchema);
 
 export const CacheModel = mongoose.model('Cache', CacheSchema);

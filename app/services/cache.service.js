@@ -10,7 +10,7 @@ export class CacheService {
   }
 
   async getAll(){
-    return await CacheModel.find();
+    return await CacheModel.find({});
   }
   async getByKey({key}){
     const res = await CacheModel.findOne({key});
